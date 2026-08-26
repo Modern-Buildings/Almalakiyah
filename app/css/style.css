@@ -1,0 +1,199 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #770705;
+  --color-brand-light: #FFF5EF;
+  --color-brand-lightest: #E5C7B7;
+  --color-brand-secondary: #AE675E;
+  --color-brand-dark: #0F0F0F;
+
+  --color-site: #F7F5F2;
+  --color-section-dark: #2B2B2B;
+  --color-section-light: #FFFFFF;
+  --color-charcoal: #2B2B2B;
+
+  --color-accent: #E7D0BC;
+
+  --font-ar: var(--font-ar);
+  --font-en: var(--font-en);
+
+  /* Hybrid Cinematic Palette */
+  --color-bg-primary: #0B0B0B;
+  --color-bg-secondary: #141414;
+  --color-bg-light: #F6F5F2;
+  --color-text-primary: #F7F7F7;
+  --color-text-dark: #1A1A1A;
+  --color-accent-gold: #C6A24F;
+}
+
+@layer base {
+  body {
+    @apply bg-site text-[#2B2B2B] font-ar antialiased overflow-x-hidden;
+    overflow-y: overlay;
+  }
+
+  /* Custom Scrollbar - Brand Identity */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: #0F0F0F;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0F0F0F;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #770705;
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #AE675E;
+  }  /* We handle cursor globally if we implement a custom one, but user asked for luxury cursor, so we will hide it when custom cursor is active. We'll do it via JS to prevent issues */
+
+  /* Global Glassmorphism for semi-transparent elements */
+  [class*="bg-white/"],
+  [class*="bg-black/"],
+  [class*="bg-[#0B0B0B]/"],
+  [class*="bg-charcoal/"],
+  [class*="bg-cream/"],
+  [class*="bg-gold/"],
+  [class*="bg-opacity-"],
+  .glass-overlay,
+  .glass-panel,
+  .overlay {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  /* Lenis Smooth Scroll Recommended CSS */
+  html.lenis {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
+  }
+}
+
+@layer components {
+  /* SplitType Typography */
+  .split-line {
+    overflow: hidden;
+  }
+  .split-word, .split-char {
+    display: inline-block;
+    will-change: transform, opacity;
+  }
+
+  /* Magnetic Button Container */
+  .magnetic-wrap {
+    display: inline-flex;
+    position: relative;
+    cursor: pointer;
+  }
+
+  /* Cinematic Sections */
+  .section-dark {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+  }
+  .section-light {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+  }
+
+  /* Image Parallax Wrapper */
+  .img-parallax-wrap {
+    overflow: hidden;
+    position: relative;
+  }
+  .img-parallax-wrap img {
+    height: 120%;
+    width: 100%;
+    object-fit: cover;
+    will-change: transform;
+  }
+
+  /* Custom Cursor */
+  .luxury-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 12px;
+    height: 12px;
+    background-color: var(--accent-gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: exclusion;
+    transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
+    transform: translate(-50%, -50%);
+    will-change: transform;
+    display: none; /* Shown via JS if not touch */
+  }
+
+  .luxury-cursor.active {
+    width: 60px;
+    height: 60px;
+    background-color: transparent;
+    border: 1px solid var(--text-primary);
+    mix-blend-mode: normal;
+  }
+  .luxury-cursor.active::after {
+    content: "VIEW";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Glass Header */
+  .glass-header {
+    background: transparent;
+    transition: background 0.4s ease, border-color 0.4s ease;
+  }
+  .glass-header.light-mode {
+    background: transparent;
+  }
+
+  /* Mobile Menu */
+  .mobile-menu-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: var(--bg-primary);
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+  .mobile-menu-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Massive Typography Mask */
+  .text-mask {
+    overflow: hidden;
+    display: inline-block;
+  }
+}
+
+@layer utilities {
+  .clip-path-reveal {
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  }
+}
