@@ -1,0 +1,46 @@
+import type { Config } from "tailwindcss";
+
+export default {
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        'cream': '#F6F5F2',
+        'charcoal': {
+          DEFAULT: '#0B0B0B',
+          light: '#141414'
+        },
+        'gold': {
+          DEFAULT: '#C6A24F',
+          dark: '#A07D3A',
+          light: '#EED498',
+          hover: '#e2c17a'
+        },
+        'text-muted': 'rgba(247, 247, 247, 0.6)',
+        // New Brand Identity
+        'site': '#F7F5F2',
+        'section-light': '#FFFFFF',
+        'section-dark': '#2B2B2B',
+        'primary': {
+          DEFAULT: '#6E1F17',
+          light: '#8a2b21',
+          dark: '#4c120e',
+        },
+        'accent': {
+          DEFAULT: '#E7D0BC',
+          light: '#f2e5d9',
+          dark: '#cda886',
+        }
+      },
+      fontFamily: {
+        'ar': ['var(--font-ar)', 'sans-serif'],
+        'en': ['var(--font-en)', 'sans-serif']
+      }
+    },
+  },
+  plugins: [],
+} satisfies Config;
