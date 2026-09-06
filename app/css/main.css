@@ -26,7 +26,7 @@ html, body {
 body {
   background-color: var(--bg-dark);
   color: var(--text-primary);
-  font-family: var(--font-ar);
+ font-family: "Alexandria", sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
   display: flex;
