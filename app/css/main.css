@@ -8,7 +8,7 @@
   --font-ar: 'Alexandria', sans-serif;
   --font-en: 'Inter', sans-serif;
 }
-
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap');
 html, body {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
