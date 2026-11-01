@@ -4,19 +4,16 @@
   --border-color: rgba(198, 162, 79, 0.2);
   --text-primary: #f5f2eb;
   --text-secondary: #c2bdae;
+  --gold: #c6a24f;
+  --gold-hover: #b38f3f;
 
-  --font-ar: 'Alexandria', sans-serif;
-  --font-en: 'Inter', sans-serif;
-}
-@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap');
-
-:root {
+  --font-ar: var(--font-alexandria), 'Alexandria', sans-serif;
   --font-en: 'Inter', sans-serif;
 }
 
 html, body {
   -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  scrollbar-width: none;     /* Firefox */
 }
 
 * {
@@ -24,15 +21,17 @@ html, body {
   margin: 0;
   padding: 0;
 }
+
 @layer base {
   body, button, input, select, textarea {
     font-family: var(--font-zain), 'Zain', sans-serif !important;
   }
 }
+
 body {
   background-color: var(--bg-dark);
   color: var(--text-primary);
- font-family: "Alexandria", sans-serif;
+  font-family: var(--font-alexandria), "Alexandria", sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
   display: flex;
