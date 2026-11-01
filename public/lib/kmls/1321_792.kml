@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>1321_792.kml</name>
+  <description></description>
+	<open>1</open>
+	<StyleMap id="m_ylw-pushpin0">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#s_ylw-pushpin0</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#s_ylw-pushpin_hl0</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="s_ylw-pushpin_hl0">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+	</Style>
+	<Style id="s_ylw-pushpin">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LineStyle>
+			<color>FF006CEF</color>
+			<width>2</width>
+		</LineStyle>
+    <PolyStyle>
+			<fill>0</fill>
+		</PolyStyle>
+	</Style>
+	<Style id="s_ylw-pushpin_hl">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LineStyle>
+			<color>FF006CEF</color>
+			<width>2</width>
+		</LineStyle>
+    <PolyStyle>
+			<fill>0</fill>
+		</PolyStyle>
+	</Style>
+	<Style id="s_ylw-pushpin0">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+	</Style>
+	<StyleMap id="m_ylw-pushpin">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#s_ylw-pushpin</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#s_ylw-pushpin_hl</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark>
+		<name>1321_792</name>
+    <description></description>
+		<styleUrl>#m_ylw-pushpin</styleUrl>
+		<LineString>
+			<tessellate>1</tessellate>
+			<coordinates>
+				54.0603330685466,17.05221174830801,0 54.060371393084196,17.05241380141344,0 54.060332918670866,17.052456551795938,0 54.060104982660775,17.052447152181415,0 54.060119667885445,17.052158982517884,0 54.060127880163556,17.05215936695357,0 54.06013725564982,17.052159800751564,0 54.06014663123968,17.05216022822564,0 54.06015600689587,17.052160651183627,0 54.06016538263696,17.05216106872593,0 54.06017475846741,17.052161480852583,0 54.060184135318046,17.05216188757709,0 54.06019351131388,17.052162288867986,0 54.060202888338836,17.05216268475686,0 54.06021226544428,17.052163075225668,0 54.06022164263454,17.052163460283086,0 54.06023102083536,17.052163840838087,0 54.06024039819554,17.052164215055495,0 54.06024977658029,17.05216458387512,0 54.06025915503137,17.052164948178657,0 54.06026853358597,17.05216530616259,0 54.060277912211355,17.052165659630482,0 54.0603330685466,17.05221174830801,0 54.0603330685466,17.05221174830801,0 
+			</coordinates>
+		</LineString>
+	</Placemark>
+	<Placemark>
+	<name>1</name>
+	<styleUrl>#m_ylw-pushpin0</styleUrl>
+	<Point>
+		<gx:drawOrder>1</gx:drawOrder>
+		<coordinates>54.0603330685466,17.05221174830801,0 </coordinates>
+	</Point>
+</Placemark><Placemark>
+	<name>2</name>
+	<styleUrl>#m_ylw-pushpin0</styleUrl>
+	<Point>
+		<gx:drawOrder>1</gx:drawOrder>
+		<coordinates>54.060371393084196,17.05241380141344,0 </coordinates>
+	</Point>
+</Placemark><Placemark>
+	<name>3</name>
+	<styleUrl>#m_ylw-pushpin0</styleUrl>
+	<Point>
+		<gx:drawOrder>1</gx:drawOrder>
+		<coordinates>54.060332918670866,17.052456551795938,0 </coordinates>
+	</Point>
+</Placemark><Placemark>
+	<name>4</name>
+	<styleUrl>#m_ylw-pushpin0</styleUrl>
+	<Point>
+		<gx:drawOrder>1</gx:drawOrder>
+		<coordinates>54.060104982660775,17.052447152181415,0 </coordinates>
+	</Point>
+</Placemark><Placemark>
+	<name>5</name>
+	<styleUrl>#m_ylw-pushpin0</styleUrl>
+	<Point>
+		<gx:drawOrder>1</gx:drawOrder>
+		<coordinates>54.060119667885445,17.052158982517884,0 </coordinates>
+	</Point>
+</Placemark><Placemark>
+	<name>6</name>
+	<styleUrl>#m_ylw-pushpin0</styleUrl>
+	<Point>
+		<gx:drawOrder>1</gx:drawOrder>
+		<coordinates>54.060127880163556,17.05215936695357,0 </coordinates>
+	</Point>
+</Placemark><Placemark>
+	<name>7</name>
+	<styleUrl>#m_ylw-pushpin0</styleUrl>
+	<Point>
+		<gx:drawOrder>1</gx:drawOrder>
+		<coordinates>54.06013725564982,17.052159800751564,0 </coordinates>
+	</Point>
+</Placemark><Placemark>
+	<name>8</name>
+	<styleUrl>#m_ylw-pushpin0</styleUrl>
+	<Point>
+		<gx:drawOrder>1</gx:drawOrder>
+		<coordinates>54.06014663123968,17.05216022822564,0 </coordinates>
+	</Point>
+</Placemark><Placemark>
+	<name>9</name>
+	<styleUrl>#m_ylw-pushpin0</styleUrl>
+	<Point>
+		<gx:drawOrder>1</gx:drawOrder>
+		<coordinates>54.06015600689587,17.052160651183627,0 </coordinates>
+	</Point>
+</Placemark><Placemark>
+	<name>10</name>
+	<styleUrl>#m_ylw-pushpin0</styleUrl>
+	<Point>
+		<gx:drawOrder>1</gx:drawOrder>
+		<coordinates>54.06016538263696,17.05216106872593,0 </coordinates>
+	</Point>
+</Placemark><Placemark>
+	<name>11</name>
+	<styleUrl>#m_ylw-pushpin0</styleUrl>
+	<Point>
+		<gx:drawOrder>1</gx:drawOrder>
+		<coordinates>54.06017475846741,17.052161480852583,0 </coordinates>
+	</Point>
+</Placemark><Placemark>
+	<name>12</name>
+	<styleUrl>#m_ylw-pushpin0</styleUrl>
+	<Point>
+		<gx:drawOrder>1</gx:drawOrder>
+		<coordinates>54.060184135318046,17.05216188757709,0 </coordinates>
+	</Point>
+</Placemark><Placemark>
+	<name>13</name>
+	<styleUrl>#m_ylw-pushpin0</styleUrl>
+	<Point>
+		<gx:drawOrder>1</gx:drawOrder>
+		<coordinates>54.06019351131388,17.052162288867986,0 </coordinates>
+	</Point>
+</Placemark><Placemark>
+	<name>14</name>
+	<styleUrl>#m_ylw-pushpin0</styleUrl>
+	<Point>
+		<gx:drawOrder>1</gx:drawOrder>
+		<coordinates>54.060202888338836,17.05216268475686,0 </coordinates>
+	</Point>
+</Placemark><Placemark>
+	<name>15</name>
+	<styleUrl>#m_ylw-pushpin0</styleUrl>
+	<Point>
+		<gx:drawOrder>1</gx:drawOrder>
+		<coordinates>54.06021226544428,17.052163075225668,0 </coordinates>
+	</Point>
+</Placemark><Placemark>
+	<name>16</name>
+	<styleUrl>#m_ylw-pushpin0</styleUrl>
+	<Point>
+		<gx:drawOrder>1</gx:drawOrder>
+		<coordinates>54.06022164263454,17.052163460283086,0 </coordinates>
+	</Point>
+</Placemark><Placemark>
+	<name>17</name>
+	<styleUrl>#m_ylw-pushpin0</styleUrl>
+	<Point>
+		<gx:drawOrder>1</gx:drawOrder>
+		<coordinates>54.06023102083536,17.052163840838087,0 </coordinates>
+	</Point>
+</Placemark><Placemark>
+	<name>18</name>
+	<styleUrl>#m_ylw-pushpin0</styleUrl>
+	<Point>
+		<gx:drawOrder>1</gx:drawOrder>
+		<coordinates>54.06024039819554,17.052164215055495,0 </coordinates>
+	</Point>
+</Placemark><Placemark>
+	<name>19</name>
+	<styleUrl>#m_ylw-pushpin0</styleUrl>
+	<Point>
+		<gx:drawOrder>1</gx:drawOrder>
+		<coordinates>54.06024977658029,17.05216458387512,0 </coordinates>
+	</Point>
+</Placemark><Placemark>
+	<name>20</name>
+	<styleUrl>#m_ylw-pushpin0</styleUrl>
+	<Point>
+		<gx:drawOrder>1</gx:drawOrder>
+		<coordinates>54.06025915503137,17.052164948178657,0 </coordinates>
+	</Point>
+</Placemark><Placemark>
+	<name>21</name>
+	<styleUrl>#m_ylw-pushpin0</styleUrl>
+	<Point>
+		<gx:drawOrder>1</gx:drawOrder>
+		<coordinates>54.06026853358597,17.05216530616259,0 </coordinates>
+	</Point>
+</Placemark><Placemark>
+	<name>22</name>
+	<styleUrl>#m_ylw-pushpin0</styleUrl>
+	<Point>
+		<gx:drawOrder>1</gx:drawOrder>
+		<coordinates>54.060277912211355,17.052165659630482,0 </coordinates>
+	</Point>
+</Placemark><Placemark>
+	<name>23</name>
+	<styleUrl>#m_ylw-pushpin0</styleUrl>
+	<Point>
+		<gx:drawOrder>1</gx:drawOrder>
+		<coordinates>54.0603330685466,17.05221174830801,0 </coordinates>
+	</Point>
+</Placemark>
+</Document>
+</kml>

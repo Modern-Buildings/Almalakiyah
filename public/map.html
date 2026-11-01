@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google Font Zain -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Zain:wght@300;400;700;800;900&display=swap" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الملكية للإستثمار</title>
+    <link rel="icon" type="image/png" href="/lib/kmls/img/logo.png">
+     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <meta name="robots" content="noindex">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+body, * {
+      font-family: 'Zain', sans-serif !important;
+    }
+        :root {
+            --primary: #111111;
+            --secondary: #d4af37;
+            --light: #ffffff;
+            --gray-bg: #fdfdfd;
+            --border-color: #e5e5e5;
+        }
+        * { box-sizing: border-box; font-family: 'Alexandria', sans-serif; margin: 0; padding: 0; }
+        body { display: flex; height: 100vh; background: var(--light); overflow: hidden; color: var(--primary); position: relative; }
+        .leaflet-control-container .leaflet-top { display: none; }
+        .admin-panel { width: 400px; background: #fffffff1; box-shadow: 2px 0 10px rgba(0,0,0,0.05); display: flex; flex-direction: column; z-index: 99999; overflow-y: auto; border-left: 1px solid var(--border-color); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative;     top: 70px;   }
+        .admin-panel.hidden { transform: translateX(400px); width: 0; min-width: 0; }
+        .toggle-panel-btn { position: absolute; right: 400px; top: 50%; transform: translateY(-50%); background: white; border: 1px solid var(--secondary); border-right: none; color: var(--secondary); padding: 15px 6px; cursor: pointer; z-index: 2000; border-radius: 4px 0 0 4px; font-size: 11px; transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); font-weight: bold; }
+        .admin-panel.hidden + .toggle-panel-btn { right: 0; }
+        .panel-header {color: var(--secondary);
+    font-weight: bold;
+    text-align: center;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 9999;}
+        .panel-logo { max-height: 50px; width: auto; object-fit: contain; border-radius: 50px; }
+        .settings-icon-btn { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-size: 20px; cursor: pointer; color: var(--secondary); user-select: none; transition: 0.2s; }
+        .settings-icon-btn1 { position: absolute; left: 35px; top: 50%; transform: translateY(-50%); font-size: 20px; cursor: pointer; color: var(--secondary); user-select: none; transition: 0.2s; }
+        .btnsc {
+          display: flex;
+          justify-content: center;
+          gap: 12px;
+          width: 100%;
+          padding-bottom: 10px;
+          box-sizing: border-box;
+        }
+      .modal-bg {
+        position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    z-index: 9999;
+}
+.modal-bg.show {
+    opacity: 1;
+    visibility: visible;
+}
+#advanced-settings-content, #search-settings-content {
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s;
+}
+#advanced-settings-content.show, #search-settings-content.show {
+    opacity: 1;
+    visibility: visible;
+}
+        .collapsible-header { background: var(--gray-bg); color: var(--primary); padding: 14px 15px; font-weight: bold; font-size: 13px; cursor: pointer; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; transition: 0.2s; border-right: 3px solid var(--secondary); }
+        .collapsible-header:hover { background: #f5f5f5; }
+        .collapsible-content {     position: fixed;
+            display: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    max-width: 90%;
+    min-height: 150px;
+    padding: 30px;
+    background: rgb(250, 250, 250);
+    border: 2px solid var(--secondary);
+    z-index: 10000;
+    border-radius: 20px;}
+        .collapsible-content.active { display: block; }
+        .arrow-icon { transition: transform 0.3s; font-size: 10px; color: var(--secondary); }
+        .active .arrow-icon { transform: rotate(180deg); }
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 11px; margin-bottom: 4px; color: #555; }
+        .form-row { display: flex; gap: 8px; }
+        input, select, textarea { width: 100%; padding: 9px; border: 1px solid #ccc; border-radius: 20px; font-size: 12px; background: #fff; color: var(--primary); }
+        input:focus, select:focus { border-color: var(--secondary); outline: none; }
+        .btn { background: #d4af37; color: var(--primary); border: 1px solid var(--secondary); padding: 11px; width: 100%; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 12px; margin-top: 10px; transition: 0.2s; text-align: center; }
+        .btn1 { background: white; color: var(--primary); border: 0px solid var(--secondary); padding: 11px; width: 100%; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 18px; margin-top: 10px; transition: 0.2s; }
+        .btn:hover { background: var(--primary); color: var(--secondary); }
+        .btn-secondary { background: #fff; color: #555; border: 1px solid #ccc; }
+        .btn-secondary:hover { background: #eee; color: #111; }
+        .map-container { flex: 1; position: relative; height: 100%; }
+        #map { width: 100%; height: 100%; }
+        .info-sidebar { position: absolute; left: -360px; top: 0; border-radius: 20px; width: 360px; height: 100%; background: #ffffffd1; box-shadow: -2px 0 15px rgba(0,0,0,0.1); z-index: 9999; transition: cubic-bezier(0.4, 0, 0.2, 1) 0.3s; display: flex; flex-direction: column; border-right: 1px solid var(--border-color); }
+        .info-sidebar.open { left: 0; }
+        .sidebar-header { background: #ffffffeb; color: var(--light); padding: 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--secondary); }
+        .sidebar-header h2 { font-size: 14px; color: var(--secondary); }
+        .sidebar-body { padding: 15px; overflow-y: auto; flex: 1; font-size: 12px; }
+        .info-item1 {
+            height: 50px;
+            overflow-y: auto;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #f5f5f5;
+            padding-bottom: 8px;
+        }
+        .info-item { margin-bottom: 12px; border-bottom: 1px solid #f5f5f5; padding-bottom: 8px; }
+        .info-item b { color: var(--primary); display: block; font-size: 11px; margin-bottom: 3px; position: relative; padding-right: 8px; }
+        .info-item b::before { content: ''; position: absolute; right: 0; top: 4px; width: 3px; height: 8px; background: var(--secondary); }
+        .close-btn { cursor: pointer; font-size: 22px; color: var(--secondary); border: none; background: none; line-height: 1; }
+        .status-badge { display: inline-block; padding: 3px 8px; color: #fff; border-radius: 4px; font-size: 10px; font-weight: bold; }
+        .filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    padding: 10px;
+    z-index: 1000;
+    background: #fff;
+    border: none;
+    box-sizing: border-box;
+}
+.filter-container1 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.panel-header {
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+.panel-logo {
+    height: 32px;
+    width: auto;
+}
+.filter-chip,
+.filter-chip2 {
+    white-space: nowrap;
+}
+@media (max-width: 768px) {
+    .filter-container {
+        gap: 4px;
+        padding: 8px;
+    }
+    .panel-header span {
+        font-size: 13px;
+    }
+    .panel-logo {
+        height: 24px;
+    }
+    .filter-chip,
+    .filter-chip2 {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+    #usage-filter-bar {
+        width: 100%;
+        margin-top: 6px;
+    }
+}
+.filter-chip { background: #fff; height: 28px; border: 1px solid #ccc; padding: 6px 12px; border-radius: 5px; font-size: 11px; font-weight: bold; cursor: pointer; transition: 0.2s; color: #555; display: inline-flex; align-items: center; gap: 4px; }
+         .filter-chip1 { background: #fff; border: 1px solid #ccc; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; cursor: pointer; transition: 0.2s; color: #555; display: inline-flex; align-items: center; gap: 4px; }
+        .filter-chip:hover { border-color: var(--secondary); background: #fffdf5; }
+        .filter-chip.active { background:#000000; color:  #ffffff; border-color: #000000; }
+        .filter-chip span { color: inherit; font-size: 10px; opacity: 0.8; }
+ .filter-chip2 { background: #fff;  padding: 6px 12px;  font-size: 11px; font-weight: normal; cursor: pointer; transition: 0.2s; color: #555; display: inline-flex; align-items: center; gap: 0px; }
+        .filter-chip2:hover { border-color: var(--secondary); background: #fffdf5; }
+        .filter-chip2.active {    border-bottom-style: solid; border-color: #d4af37; }
+        .filter-chip2 span { color: inherit; font-size: 10px; opacity: 0.8; }
+        .table-container { padding: 5px 10px; overflow-y: auto; flex: 1; }
+        table { width: 100%; border-collapse: collapse; text-align: right; font-size: 11px; }
+        th, td { padding: 10px 6px; border-bottom: 1px solid #eee; }
+        th { background: #ffffffd1; border-radius: 20px; color: #333; font-weight: bold; cursor: pointer; user-select: none; transition: background 0.2s; }
+        th:hover { background: #eedda5; }
+        th.sort-asc::after { content: " ▲"; font-size: 9px; color: var(--secondary); }
+        th.sort-desc::after { content: " ▼"; font-size: 9px; color: var(--secondary); }
+        tr:hover { background: #fdfaf2; cursor: pointer; }
+        .croky-preview { max-width: 100%;  border-radius: 20px; border: 1px solid var(--border-color); margin-top: 5px; }
+        .nested-accordion { border: 1px solid var(--border-color); border-radius: 4px; margin-top: 10px; overflow: hidden; }
+        .nested-header { background: #f9f9f9; padding: 10px; font-weight: bold; cursor: pointer; font-size: 11px; display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); }
+        .nested-content { padding: 12px; display: none; background: #fff; }
+@media (max-width: 992px) {
+    html, body {
+        width: 100vw !important;
+        height: 100vh !important;
+        overflow: hidden !important;
+        position: relative !important;
+    }
+    .map-container {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        z-index: 1 !important;
+    }
+    #map {
+        width: 100% !important;
+        height: 100% !important;
+    }
+    .admin-panel {
+        position: fixed !important;
+        right: 0 !important;
+        top: 0 !important;
+        height: 100% !important;
+        width: 300px !important;
+        max-width: 80vw !important;
+        z-index: 9999 !important;
+        background: var(--light) !important;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.15) !important;
+        transform: translateX(0) !important;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    .admin-panel.hidden {
+        transform: translateX(100%) !important;
+        width: 300px !important;
+    }
+    .toggle-panel-btn {
+        position: fixed !important;
+        right: 300px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        z-index: 10000 !important;
+        transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        padding: 16px 8px !important;
+        font-size: 14px !important;
+    }
+    .admin-panel.hidden + .toggle-panel-btn {
+        right: 0 !important;
+    }
+    .info-sidebar {
+        position: fixed !important;
+        left: -320px !important;
+        top: 50px ;
+        width: 300px !important;
+        max-width: 85vw !important;
+        height: 100% !important;
+        z-index: 10005 !important;
+        box-shadow: 5px 0 15px rgba(0,0,0,0.15) !important;
+        transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    .info-sidebar.open {
+        left: 0 !important;
+    }
+    input, select, textarea {
+        padding: 11px !important;
+        font-size: 13px !important;
+    }
+    .btn, .btn1 {
+        padding: 12px !important;
+        font-size: 13px !important;
+    }
+    th, td {
+        padding: 8px 4px !important;
+        font-size: 10px !important;
+        white-space: nowrap !important;
+    }
+    .btnsc {
+        gap: 6px !important;
+    }
+    .btn1 {
+        font-size: 16px !important;
+        padding: 8px !important;
+    }
+    .filter-container {
+        padding: 8px !important;
+    }
+    .filter-chip {
+        padding: 6px 10px !important;
+        font-size: 10px !important;
+    }
+}
+   .region-bubble{
+    z-index: 9999999;
+    border-radius:50%;
+    background:rgba(17,17,17,.92);
+    border:2px solid #d4af37;
+    color:#fff;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+    backdrop-filter:blur(8px);
+    transition:
+    opacity .3s ease,
+    transform .2s ease;
+}
+.region-bubble:hover{
+    transform:scale(1.08);
+}
+.region-bubble .name{
+    font-size:12px;
+    font-weight:bold;
+}
+.region-bubble .count{
+    font-size:20px;
+    font-weight:700;
+}
+
+   </style>
+</head>
+<body>
+      <div id="add-land-content" class="collapsible-content">
+                <h4 style="font-size: 15px; margin-bottom: 8px; font-weight: bold;">اضافة ارض</h4>
+                <br>
+          <div style="font-size: 22px; color:var(--secondary); cursor: pointer;position: absolute;left: 20px; top:10px;" onclick="toggleSection('add-land-content')" title="اغلاق">x</div>
+            <form id="land-form">
+                <input type="hidden" id="edit-id">
+                <div class="form-row">
+                    <div class="form-group" style="flex:2;">
+                        <label>نوع الارض</label>
+                        <select id="prop-type">
+                            <option value="land">أرض فضاء</option>
+                            <option value="investment">عقار جاهز للاستثمار</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="flex:2;">
+                        <label>الاستعمال</label>
+                        <select id="region-type">
+                            <option value="sakani">سكني</option>
+                             <option value="sinay">صناعي</option>
+                            <option value="sakanitgary">سكني | تجاري</option>
+                            <option value="tgary">تجاري</option>
+                            <option value="zrai">زراعي</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="flex:2;">
+                        <label>رقم القطعة </label>
+                        <input type="text" id="plot-num" required placeholder="مثال: 21 أو 1146D">
+                    </div>
+                    <div class="form-group" style="flex:1;">
+                        <label>المربع</label>
+                        <select id="plot-square">
+                            <option value="-">-</option>
+                            <option value="أ">أ</option>
+                            <option value="ب">ب</option>
+                            <option value="ج">ج</option>
+                            <option value="ل">ل</option>
+                            <option value="هـ">هـ</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="flex:1;">
+                        <label>المنطقة</label>
+                        <select id="region-main">
+                            <option value="صلالة">صلالة</option>
+                            <option value="السعادة">السعادة</option>
+                            <option value="الدهاريز">الدهاريز</option>
+                            <option value="عوقد">عوقد</option>
+                            <option value="صحلنوت">صحلنوت</option>
+                            <option value="مرباط">مرباط</option>
+                            <option value="مسقط">مسقط</option>
+                            <option value="بركاء">بركاء</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="flex:1;">
+                        <label>الجهة / الامتداد</label>
+                        <select id="region-sub">
+                            <option value="-">-</option>
+                            <option value="الحي_التجاري">الحي التجاري</option>
+                              <option value="الوادي">الوادي</option>
+                            <option value="جنوب">جنوب</option>
+                            <option value="الغرب">الغرب</option>
+                            <option value="شمال">شمال</option>
+                            <option value="الجديدة">الجديدة</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="flex:1;">
+                        <label>المساحة (م²)</label>
+                        <input type="number" id="prop-area" required placeholder="4622">
+                    </div>
+                    <div class="form-group" style="flex:1;">
+                        <label>السعر الفعلي (ر.ع)</label>
+                        <input type="number" id="prop-price" required placeholder="15000">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="flex:1;">
+                        <label>عدد الطوابق</label>
+                        <input type="text" id="tech-floors" placeholder="طابقين">
+                    </div>
+                    <div class="form-group" style="flex:1;">
+                        <label>الارتدادات</label>
+                        <input type="text" id="tech-offsets" placeholder="أمامي 3م">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="flex:1;">
+                        <label>اسم</label>
+                        <input type="text" id="owner-name" placeholder="الاسم ثلاثي">
+                    </div>
+                    <div class="form-group" style="flex:1;">
+                        <label>رقم</label>
+                        <input type="tel" id="owner-phone" placeholder="968xxxx">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>حالة العرض</label>
+                    <select id="prop-status">
+                        <option value="ready">جاهزة / معروضة</option>
+                        <option value="sold">مباعة</option>
+                        <option value="reserved">محجوزة</option>
+                        <option value="expired">منتهي العرض</option>
+                    </select>
+                </div>
+                <button type="submit" id="submit-btn" class="btn">حفظ</button>
+                <button type="button" id="cancel-edit-btn" class="btn btn-secondary" style="display:none; margin-top:5px;">إلغاء</button>
+            </form>
+        </div>
+       <div id="admin-panel" class="admin-panel hidden">
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th id="th-plot" onclick="sortTable('plotNum', this)">العقار</th>
+                        <th id="th-region" onclick="sortTable('regionMain', this)">المنطقة</th>
+                        <th id="th-area" onclick="sortTable('area', this)">المساحة</th>
+                       <th id="th-useit" onclick="sortTable('useit', this)">الاستعمال</th>
+                        <th>الحالة</th>
+                    </tr>
+                </thead>
+                <tbody id="lands-table-body">
+                </tbody>
+            </table>
+        </div>
+    </div>
+        <button id="toggle-panel-btn" class="toggle-panel-btn" onclick="toggleAdminPanel()">▶</button>
+        <div id="region-filter-bar" class="filter-container">
+            <div class="panel-header">
+                <div class="filter-chip" onclick="toggleSectionDirect('search-settings-content')" title="بحث وتصفية">🔍 بحث</div>
+                <div class="filter-chip" onclick="toggleSectionDirect('advanced-settings-content')" title="ادارة">≡</div>
+    <img src="lib/kmls/img/logo.png"
+         class="panel-logo">
+    <span>الملكية للإستثمار</span>
+</div>
+                        <div id="usage-filter-bar" class="filter-container1">
+</div>
+            </div>
+    
+    <div class="map-container">
+        <div class="modal-bg">
+        
+        <!-- Advanced Settings Modal -->
+        <div id="advanced-settings-content" style=" position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 400px; max-width: 90%; min-height: 150px; padding: 15px; background: rgb(250, 250, 250); border: 2px solid var(--secondary); z-index: 10000; border-radius: 20px;">
+            <h4 style="font-size: 15px; margin-bottom: 8px; font-weight: bold;">إدارة البيانات</h4>
+            <div style="font-size: 22px; color:var(--secondary); cursor: pointer;position: absolute;left: 20px; top:10px;" onclick="toggleSectionDirect('advanced-settings-content')" title="اغلاق">x</div>
+            <br>
+            <div style="display:flex; gap:8px;">
+                   <div class="filter-chip1" style="flex:1; margin-top:0;" onclick="toggleSection('add-land-content')" title="اضافة">اضافة</div>
+                <button type="button" class="filter-chip1" style="flex:1; margin-top:0;" onclick="exportToExcel()">تصدير</button>
+                <button type="button" class="filter-chip1" style="flex:1; margin-top:0;" onclick="importFromExcel()">استيراد</button>
+            </div>
+            <button type="button" class="filter-chip1" style="width:100%; margin-top:8px;" onclick="clearAllDataSystem()">إعادة تعيين البيانات</button>
+        </div>
+
+        <!-- Search & Filter Modal -->
+        <div id="search-settings-content" style=" position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 400px; max-width: 90%; min-height: 150px; padding: 25px; background: rgb(250, 250, 250); border: 2px solid var(--secondary); z-index: 10000; border-radius: 20px;">
+            <h4 style="font-size: 15px; margin-bottom: 8px; font-weight: bold;">البحث والفلترة المتقدمة</h4>
+            <div style="font-size: 22px; color:var(--secondary); cursor: pointer;position: absolute;left: 20px; top:10px;" onclick="toggleSectionDirect('search-settings-content')" title="اغلاق">x</div>
+            <br>
+            <form id="search-form">
+                <div class="form-group">
+                    <label>المنطقة</label>
+                    <select id="search-region">
+                        <option value="الكل">الكل</option>
+                        <option value="صلالة">صلالة</option>
+                        <option value="السعادة">السعادة</option>
+                        <option value="الدهاريز">الدهاريز</option>
+                        <option value="عوقد">عوقد</option>
+                        <option value="صحلنوت">صحلنوت</option>
+                        <option value="مرباط">مرباط</option>
+                        <option value="مسقط">مسقط</option>
+                        <option value="بركاء">بركاء</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="flex:1;">
+                        <label>المساحة (من)</label>
+                        <input type="number" id="search-area-min" placeholder="0">
+                    </div>
+                    <div class="form-group" style="flex:1;">
+                        <label>المساحة (إلى)</label>
+                        <input type="number" id="search-area-max" placeholder="100000">
+                    </div>
+                </div>
+                <div class="btnsc" style="margin-top:10px;">
+                    <button type="submit" class="btn" style="flex:1;">بحث وتطبيق</button>
+                    <button type="button" class="btn btn-secondary" style="flex:1;" onclick="clearSearchFilter()">إلغاء الفلتر</button>
+                </div>
+            </form>
+        </div>
+        
+        </div>
+        <div id="map"></div>
+        <div id="info-sidebar" class="info-sidebar">
+            <div class="sidebar-header">
+                <h2 id="side-title">تفاصيل العقار</h2>
+                <button class="close-btn" onclick="toggleSidebar(false)">×</button>
+            </div>
+            <div class="sidebar-body" id="side-body">
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-omnivore@0.3.4/leaflet-omnivore.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script>
+          let selectedUsageFilter = 'الكل';
+          let isAdvancedSearchActive = false;
+          let advSearchMin = 0;
+          let advSearchMax = Infinity;
+
+        const googleSatellite = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', { maxZoom: 20 });
+        const streetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 20 });
+        const labelLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', { maxZoom: 20, opacity: 0.9 });
+        const map = L.map('map', {
+            center: [17.0151, 54.0924],
+            zoom: 13,
+            layers: [googleSatellite, labelLayer]
+        });
+        map.createPane('propertyPinsPane');
+map.getPane('propertyPinsPane').style.zIndex = 400;
+map.createPane('regionBubblePane');
+map.getPane('regionBubblePane').style.zIndex = 700;
+        const baseMaps = { "قمر صناعي (جوجل)": L.layerGroup([googleSatellite, labelLayer]), "خريطة الشوارع": streetLayer };
+        L.control.layers(baseMaps, null, { position: 'topleft' }).addTo(map);
+        let localProperties = JSON.parse(localStorage.getItem('my_properties')) || [];
+        let properties = [];
+        let selectedRegionFilter = 'كافة المناطق'
+        let mapLayersGroup = L.layerGroup().addTo(map);
+        const allLandsLayers = [];
+        const regionCenters = {
+    "صلالة":[17.0197,54.0897],
+    "السعادة":[17.0530,54.1530],
+    "الدهاريز":[17.027819814048563,54.16463803424357],
+    "عوقد":[17.0400,54.0300],
+    "صحلنوت":[17.08830254395776,54.19122524300502],
+    "مرباط":[16.9900,54.6900],
+    "مسقط":[23.5880,58.3829],
+    "بركاء":[23.6787,57.8860]
+};
+let regionBubbles = [];
+        let currentSortKey = '';
+        let isSortAsc = true;
+       const pinIcons = {
+    sakani: L.icon({
+        iconUrl: 'lib/kmls/img/yellow-pin.png',
+        iconSize: [32,32],
+        iconAnchor:[16,32]
+    }),
+    tgary: L.icon({
+        iconUrl: 'lib/kmls/img/yellow-pin.png',
+        iconSize: [32,32],
+        iconAnchor:[16,32]
+    }),
+              sinay: L.icon({
+        iconUrl: 'lib/kmls/img/yellow-pin.png',
+        iconSize: [32,32],
+        iconAnchor:[16,32]
+    }),
+    zrai: L.icon({
+        iconUrl: 'lib/kmls/img/yellow-pin.png',
+        iconSize: [32,32],
+        iconAnchor:[16,32]
+    }),
+    sakanitgary: L.icon({
+        iconUrl: 'lib/kmls/img/yellow-pin.png',
+        iconSize: [32,32],
+        iconAnchor:[16,32]
+    }),
+    investment: L.icon({
+        iconUrl: 'lib/kmls/img/yellow-pin.png',
+        iconSize: [32,32],
+        iconAnchor:[16,32]
+    })
+};
+        scanKmlFolderAndLoad();
+function openInGoogleEarth(layer) {
+    if (!layer || !layer.getBounds) {
+        alert("خطأ في الاحداثيات");
+        return;
+    }
+    const center = layer.getBounds().getCenter();
+    const lat = center.lat;
+    const lng = center.lng;
+    const googleEarthUrl = `https://earth.google.com/web/search/${lat},${lng}`;
+    window.open(googleEarthUrl, 'googleEarthWindow');
+}
+        function toggleAdminPanel() {
+            const panel = document.getElementById('admin-panel');
+            const btn = document.getElementById('toggle-panel-btn');
+            panel.classList.toggle('hidden');
+            if(panel.classList.contains('hidden')) {
+                btn.innerText = '◀';
+            } else {
+                btn.innerText = '▶';
+            }
+            setTimeout(() => { map.invalidateSize(); }, 300);
+        }
+
+        // Logic for Advanced Search Submit
+        document.getElementById('search-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const r = document.getElementById('search-region').value;
+            if (r !== 'الكل') {
+                selectedRegionFilter = r; // Sync with quick filter
+            } else {
+                selectedRegionFilter = 'كافة المناطق';
+            }
+            advSearchMin = parseFloat(document.getElementById('search-area-min').value) || 0;
+            advSearchMax = parseFloat(document.getElementById('search-area-max').value) || Infinity;
+            isAdvancedSearchActive = true;
+            toggleSectionDirect('search-settings-content'); // close modal
+            updateUI();
+        });
+
+        function clearSearchFilter() {
+            isAdvancedSearchActive = false;
+            advSearchMin = 0;
+            advSearchMax = Infinity;
+            selectedRegionFilter = 'كافة المناطق'; 
+            document.getElementById('search-form').reset();
+            toggleSectionDirect('search-settings-content'); // close modal
+            updateUI();
+        }
+
+        async function scanKmlFolderAndLoad() {
+            try {
+                const response = await fetch('lib/kmls/');
+                if (!response.ok) throw new Error("لا يمكن قراءة المجلد مباشرة");
+                const text = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(text, 'text/html');
+                const links = doc.querySelectorAll('a');
+                let scannedProps = [];
+                links.forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href && href.endsWith('.kml') && href.includes('_')) {
+                        const filename = href.split('/').pop().replace('.kml', '');
+                        const parts = filename.split('_');
+                        const plotNum = parts[0];
+                        const area = parts[1];
+                        const existsInLocal = localProperties.some(lp => lp.plotNum === plotNum && lp.area === area);
+                        if (!existsInLocal) {
+                            scannedProps.push({
+                                id: 'scanned_' + filename,
+                                type: 'land',
+                                plotNum: plotNum,
+                                square: 'أ',
+                                regionMain: 'صلالة',
+                                regionType: 'sakani',
+                                regionSub: 'الجديدة',
+                                area: area,
+                                price: 'غير محدد',
+                                floors: '',
+                                offsets: '',
+                                ownerName: '',
+                                ownerPhone: '',
+                                status: 'ready',
+                                isScanned: true
+                            });
+                        }
+                    }
+                });
+                properties = [...scannedProps, ...localProperties];
+            } catch (err) {
+                properties = [...localProperties];
+            }
+            updateUI();
+        }
+        function clearAllDataSystem() {
+            if (confirm("يرجى التأكيد او الالغاء")) {
+                localStorage.removeItem('my_properties');
+                localProperties = [];
+                properties = [];
+                selectedRegionFilter = 'كافة المناطق';
+                mapLayersGroup.clearLayers();
+                allLandsLayers.length = 0;
+                resetForm();
+                toggleSidebar(false);
+             document.querySelector('.modal-bg').classList.remove('show');
+                scanKmlFolderAndLoad();
+                alert("تم اعادة تعيين البيانات بنجاح");
+            }
+        }
+function toggleSectionDirect(id) {
+    const el = document.getElementById(id);
+    const bg = document.querySelector('.modal-bg');
+    
+    // Check if the current element is already active
+    const isCurrentlyActive = el.classList.contains('show');
+    
+    // Hide all modals first
+    document.getElementById('advanced-settings-content').classList.remove('show');
+    document.getElementById('search-settings-content').classList.remove('show');
+    
+    // If it wasn't active, show it along with background
+    if (!isCurrentlyActive) {
+        el.classList.add('show');
+        bg.classList.add('show');
+    } else {
+        bg.classList.remove('show');
+    }
+}
+        function exportToExcel() {
+            if (localProperties.length === 0) {
+                alert("لا توجد بيانات مضافة يدوياً لتصديرها حالياً!");
+                return;
+            }
+            const formattedData = localProperties.map(p => ({
+                "نوع العقار": p.type === 'land' ? 'أرض فضاء' : 'عقار استثماري',
+                "الاستعمال": p.regionType || 'sakani',
+                "رقم القطعة / العقار": p.plotNum,
+                "المربع": p.square,
+                "المنطقة": p.regionMain,
+                "الجهة / الامتداد": p.regionSub,
+                "المساحة (م²)": parseFloat(p.area),
+                "السعر الفعلي (ر.ع)": parseFloat(p.price) || p.price,
+                "عدد الطوابق": p.floors,
+                "الارتدادات": p.offsets,
+                "اسم المالك": p.ownerName,
+                "رقم المالك": p.ownerPhone,
+                "رابط الفيديو": p.video || '',
+                "حالة العرض": p.status
+            }));
+            const worksheet = XLSX.utils.json_to_sheet(formattedData);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "العقارات");
+            XLSX.writeFile(workbook, "دليل_العقارات.xlsx");
+        }
+async function importFromExcel(token = null) {
+
+    if (!token) {
+        token = prompt("الرجاء إدخال رمز المرور:");
+    }
+
+    if (!token) return;
+
+    const baseId = "1wkuQIBO8FFFvDmD79sA0-68jrrHw";
+    const fullSheetId = baseId + token.trim();
+    const exportUrl = `https://docs.google.com/spreadsheets/d/${fullSheetId}/export?format=xlsx`;
+
+    try {
+
+        const response = await fetch(exportUrl);
+
+        if (!response.ok) {
+            throw new Error("رابط غير صحيح أو ملف محمي");
+        }
+
+        const arrayBuffer = await response.arrayBuffer();
+        const data = new Uint8Array(arrayBuffer);
+
+        const workbook = XLSX.read(data, { type: 'array' });
+        const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+        const excelRows = XLSX.utils.sheet_to_json(worksheet);
+
+        let importedCount = 0;
+
+        excelRows.forEach(row => {
+
+            const plotNum = String(row["رقم القطعة / العقار"] || "").trim();
+            const area = String(row["المساحة (م²)"] || "").trim();
+
+            if (!plotNum || !area) return;
+
+            const propData = {
+                id: Date.now() + Math.floor(Math.random() * 1000), // Default new ID
+                type: row["نوع العقار"] === 'عقار استثماري' ? 'investment' : 'land',
+                regionType: row["الاستعمال"] || 'sakani',
+                plotNum: plotNum,
+                square: row["المربع"] || '-',
+                regionMain: row["المنطقة"] || 'صلالة',
+                regionSub: row["الجهة / الامتداد"] || '-',
+                area: area,
+                price: String(row["السعر الفعلي (ر.ع)"] || '0'),
+                floors: row["عدد الطوابق"] || '',
+                offsets: row["الارتدادات"] || '',
+                ownerName: row["اسم المالك"] || '',
+                ownerPhone: row["رقم المالك"] || '',
+                video: row["رابط الفيديو"] || '',
+                status: row["حالة العرض"] || 'ready'
+            };
+
+            // MODIFICATION: Check for duplicates to Update instead of Ignore
+            const existingIndex = localProperties.findIndex(
+                lp => lp.plotNum === propData.plotNum && lp.area === propData.area
+            );
+
+            if (existingIndex !== -1) {
+                // If it exists, update it but keep the old ID
+                propData.id = localProperties[existingIndex].id;
+                localProperties[existingIndex] = propData;
+                importedCount++;
+            } else {
+                // If new, just add it
+                localProperties.push(propData);
+                importedCount++;
+            }
+
+        });
+
+        if (importedCount > 0) {
+            localStorage.setItem('my_properties', JSON.stringify(localProperties));
+            scanKmlFolderAndLoad();
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("خطأ في كلمة السر! تعذر الوصول إلى الملف.");
+
+    }
+
+}
+
+const urlToken = location.search.substring(1);
+
+if (urlToken) {
+    importFromExcel(urlToken);
+}
+        function sortTable(key, thElement) {
+            if (currentSortKey === key) {
+                isSortAsc = !isSortAsc;
+            } else {
+                currentSortKey = key;
+                isSortAsc = true;
+            }
+            document.querySelectorAll('th').forEach(th => {
+                th.classList.remove('sort-asc', 'sort-desc');
+            });
+            thElement.classList.add(isSortAsc ? 'sort-asc' : 'sort-desc');
+            properties.sort((a, b) => {
+                let valA = a[key];
+                let valB = b[key];
+                if (key === 'area') {
+                    return isSortAsc ? parseFloat(valA) - parseFloat(valB) : parseFloat(valB) - parseFloat(valA);
+                }
+                return isSortAsc
+                    ? String(valA).localeCompare(String(valB), 'ar', {numeric: true})
+                    : String(valB).localeCompare(String(valA), 'ar', {numeric: true});
+            });
+            updateTable();
+        }
+        function renderFilterBar() {
+            const filterBar = document.getElementById('region-filter-bar');
+            const regionsList = ['كافة المناطق', 'صلالة', 'السعادة', 'الدهاريز', 'عوقد', 'صحلنوت', 'مرباط', 'مسقط', 'بركاء'];
+            const usageTypes = [
+    ['الكل','الكل'],
+    ['sakani','سكني'],
+    ['sinay','صناعي'],
+    ['tgary','تجاري'],
+    ['zrai','زراعي'],
+    ['sakanitgary','سكني | تجاري'],
+    ['investment','عقار']
+];
+usageTypes.forEach(item=>{
+    const chip=document.createElement('div');
+    chip.className=`filter-chip ${selectedUsageFilter===item[0]?'active':''}`;
+    chip.innerHTML=item[1];
+    chip.onclick=()=>{
+        selectedUsageFilter=item[0];
+        updateUI();
+    };
+    filterBar.appendChild(chip);
+});
+            filterBar.innerHTML = '';
+            regionsList.forEach(reg => {
+                let count = 0;
+                if (reg === 'كافة المناطق') {
+                    count = properties.length;
+                } else {
+                    count = properties.filter(p => p.regionMain === reg).length;
+                }
+                const chip = document.createElement('div');
+                chip.className = `filter-chip ${selectedRegionFilter === reg ? 'active' : ''}`;
+                chip.innerHTML = `${reg} <span>(${count})</span>`;
+                chip.addEventListener('click', () => {
+    selectedRegionFilter = reg;
+    const regionCenters = {
+        "صلالة":[17.0197,54.0897],
+        "السعادة":[17.0530,54.1530],
+        "الدهاريز":[17.027819814048563, 54.16463803424357],
+        "عوقد":[17.0400,54.0300],
+        "صحلنوت":[17.08830254395776, 54.19122524300502],
+        "مرباط":[16.9900,54.6900],
+        "مسقط":[23.5880,58.3829],
+        "بركاء":[23.6787,57.8860]
+    };
+    if(regionCenters[reg]){
+        map.flyTo(
+            regionCenters[reg],
+            15,
+            {
+                animate:true,
+                duration:1.5
+            }
+        );
+    }
+    else {
+         map.flyTo(
+        [17.0197, 54.0897],
+        13,
+            {
+                animate:true,
+                duration:1.5
+            }
+        );
+    }
+    updateUI();
+});
+                filterBar.appendChild(chip);
+            });
+               filterBar.insertAdjacentHTML(
+    'beforeend',
+'<div style="align-content: center; padding-right: 20px;     padding-left: 20px;     color: #a5a5a5;">|</div><div id="usage-filter-bar" class="filter-container1"></div>'
+);
+   filterBar.insertAdjacentHTML(
+    'afterbegin',
+    '<div class="filter-chip" onclick="toggleSectionDirect(\'search-settings-content\')" title="بحث وتصفية">🔍 بحث</div> <div class="filter-chip" onclick="toggleSectionDirect(\'advanced-settings-content\')" title="ادارة">≡</div>  <div class="panel-header"><img src="lib/kmls/img/logo.png" alt="الشعار" class="panel-logo" onerror="this.style.display=(\'none\')"><span>الملكية للإستثمار</span> </div> <div style="align-content: center; padding-right: 20px;     padding-left: 20px;     color: #a5a5a5;">|</div>'
+);
+        }
+      function toggleSection(id) {
+    const el = document.getElementById(id);
+    if (!el) {
+        console.error('Element not found:', id);
+        return;
+    }
+    const header = el.previousElementSibling;
+    if (el.classList.contains('active')) {
+        el.classList.remove('active');
+        if (header) {
+            header.classList.remove('active');
+        }
+    } else {
+        el.classList.add('active');
+        if (header) {
+            header.classList.add('active');
+        }
+    }
+}
+        document.getElementById('land-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const editId = document.getElementById('edit-id').value;
+            const propData = {
+                id: editId ? (editId.startsWith('scanned_') ? editId : parseInt(editId)) : Date.now(),
+                type: document.getElementById('prop-type').value,
+                plotNum: document.getElementById('plot-num').value.trim(),
+                square: document.getElementById('plot-square').value,
+                regionMain: document.getElementById('region-main').value,
+                regionType: document.getElementById('region-type').value,
+                regionSub: document.getElementById('region-sub').value,
+                area: document.getElementById('prop-area').value.trim(),
+                price: document.getElementById('prop-price').value.trim(),
+                floors: document.getElementById('tech-floors').value.trim(),
+                offsets: document.getElementById('tech-offsets').value.trim(),
+                ownerName: document.getElementById('owner-name').value.trim(),
+                ownerPhone: document.getElementById('owner-phone').value.trim(),
+                status: document.getElementById('prop-status').value
+            };
+            if (editId) {
+                localProperties = localProperties.map(p => p.id === propData.id ? propData : p);
+                if(editId.startsWith('scanned_')) {
+                    propData.id = Date.now();
+                    localProperties.push(propData);
+                }
+            } else {
+                localProperties.push(propData);
+            }
+            localStorage.setItem('my_properties', JSON.stringify(localProperties));
+            resetForm();
+            scanKmlFolderAndLoad();
+        });
+        function resetForm() {
+            document.getElementById('land-form').reset();
+            document.getElementById('edit-id').value = '';
+            document.getElementById('submit-btn').innerText = 'حفظ';
+            document.getElementById('cancel-edit-btn').style.display = 'none';
+        }
+        document.getElementById('cancel-edit-btn').addEventListener('click', resetForm);
+        function updateUI() {
+           renderUsageFilterBar();
+    updateTable();
+    renderMapLayers();
+    renderRegionBubbles();
+        }
+        function updateTable() {
+            const tbody = document.getElementById('lands-table-body');
+            tbody.innerHTML = '';
+          const filteredProperties = properties.filter(p => {
+    const regionMatch =
+        selectedRegionFilter === 'كافة المناطق'
+        || p.regionMain === selectedRegionFilter;
+    const usageMatch =
+        selectedUsageFilter === 'الكل'
+        || p.regionType === selectedUsageFilter
+        || (selectedUsageFilter === 'investment' && p.type === 'investment');
+
+    // Advanced search check
+    let areaMatch = true;
+    if (isAdvancedSearchActive) {
+        const pArea = parseFloat(p.area) || 0;
+        areaMatch = pArea >= advSearchMin && pArea <= advSearchMax;
+    }
+
+    return regionMatch && usageMatch && areaMatch;
+});
+            filteredProperties.forEach(p => {
+                const tr = document.createElement('tr');
+                const statusLabels = { ready: 'معروض', sold: 'مباع', reserved: 'محجوز', expired: 'منتهي' };
+                tr.innerHTML = `
+                    <td><b>${p.type === 'land' ? 'أرض' : 'عقار'} ${p.plotNum}</b></td>
+                    <td>${p.regionMain} ${p.isScanned ? '(تلقائي)' : ''}</td>
+                    <td>${p.area} م²</td>
+                    <td>
+${
+p.regionType==='sakani' ? 'سكني' :
+p.regionType==='sinay' ? 'صناعي' :
+p.regionType==='tgary' ? 'تجاري' :
+p.regionType==='zrai' ? 'زراعي' :
+p.regionType==='sakanitgary' ? 'سكني | تجاري' :
+'عقار'
+}
+</td>
+<td><span class="status-badge" style="background:${getBadgeColor(p.status)}">${statusLabels[p.status]}</span></td>
+                `;
+                tr.addEventListener('click', () => focusOnProperty(p.id));
+                tbody.appendChild(tr);
+            });
+        }
+        function getBadgeColor(status) {
+            if(status === 'ready') return '#d4af37';
+            if(status === 'sold') return '#aa1e1e';
+            if(status === 'reserved') return '#555555';
+            return '#999999';
+        }
+       function renderMapLayers() {
+    mapLayersGroup.clearLayers();
+    allLandsLayers.length = 0;
+    properties.forEach(p => {
+        const regionMatch =
+            selectedRegionFilter === 'كافة المناطق' ||
+            p.regionMain === selectedRegionFilter;
+        const usageMatch =
+            selectedUsageFilter === 'الكل' ||
+            p.regionType === selectedUsageFilter ||
+            (selectedUsageFilter === 'investment' && p.type === 'investment');
+        
+        let areaMatch = true;
+        if (isAdvancedSearchActive) {
+            const pArea = parseFloat(p.area) || 0;
+            areaMatch = pArea >= advSearchMin && pArea <= advSearchMax;
+        }
+
+        if (!regionMatch || !usageMatch || !areaMatch) {
+            return;
+        }
+        const generatedKmlUrl = `lib/kmls/${p.plotNum}_${p.area}.kml`;
+        const customLayer = omnivore.kml(generatedKmlUrl)
+            .on('ready', function() {
+                customLayer.eachLayer(layer => {
+                    if (layer instanceof L.Marker) {
+                        customLayer.removeLayer(layer);
+                        return;
+                    }
+                    applyLayerStylesAndEvents(layer, p, customLayer);
+                });
+            })
+            .on('error', function() {
+                createFallbackMarker(p);
+            });
+        mapLayersGroup.addLayer(customLayer);
+    });
+}
+        function applyLayerStylesAndEvents(layer, p, parentLayer) {
+            const isSold = p.status === 'sold';
+            if (layer instanceof L.Polygon || layer instanceof L.Polyline) {
+                layer.setStyle({
+                    color: isSold ? '#aa1e1e' : '#d4af37',
+                    weight: 3,
+                    fillColor: isSold ? '#aa1e1e' : '#111111',
+                    fillOpacity: 0.45,
+                    fill: true
+                });
+                layer.propertyId = p.id;
+                layer.customData = p;
+                allLandsLayers.push(layer);
+                const centerLatLng = layer.getBounds().getCenter();
+               const cleanPin = L.marker(centerLatLng, {
+    icon: pinIcons[p.regionType] || pinIcons.sakani,
+    pane: 'propertyPinsPane'
+});
+                const openDetails = () => showPropertyDetails(p, layer);
+                layer.on('click', openDetails);
+                cleanPin.on('click', openDetails);
+                parentLayer.addLayer(cleanPin);
+            }
+        }
+        function createFallbackMarker(p) {
+            const offset = (properties.indexOf(p) * 0.002);
+            const fallbackLatLng = [17.0151 + (offset * 0.1), 54.0924 + offset];
+            const marker = L.marker(fallbackLatLng, {
+    icon: pinIcons[p.regionType] || pinIcons.sakani
+});
+            marker.propertyId = p.id;
+            marker.on('click', () => showPropertyDetails(p, null));
+            mapLayersGroup.addLayer(marker);
+        }
+        function showPropertyDetails(p, layer) {
+            const videoButton = p.video
+? `<button class="btn1" style="font-size:11px; background: #d4af37;" onclick="window.open('${p.video}','_blank')">▶ مشاهدة </button>`
+: '';
+            const sideTitle = document.getElementById('side-title');
+            const sideBody = document.getElementById('side-body');
+            sideTitle.innerText = `${p.type === 'land' ? 'أرض فضاء' : 'عقار استثماري'} - رقم ${p.plotNum}`;
+            let measurementsHtml = '';
+            let lat = 17.0151, lng = 54.0924;
+            if (layer && layer.getLatLngs) {
+                let latlngs = layer.getLatLngs();
+                let points = (latlngs.length > 0 && Array.isArray(latlngs[0])) ? latlngs[0] : latlngs;
+                if(points.length > 1) {
+                    measurementsHtml += `<div class="info-item1"><b>أطوال الأضلاع الجغرافية:</b><ul style="padding-right:15px; margin-top:5px;">`;
+                    let totalPerimeter = 0;
+                    for (let i = 0; i < points.length; i++) {
+                        const distance = map.distance(points[i], points[(i + 1) % points.length]);
+                        totalPerimeter += distance;
+                        measurementsHtml += `<li>الضلع ${i+1}: <b>${distance.toFixed(1)} م</b></li>`;
+                    }
+                    measurementsHtml += `</ul><p style="margin-top:5px;">المحيط الإجمالي: <b>${totalPerimeter.toFixed(1)} متر</b></p></div>`;
+                }
+                const center = layer.getBounds().getCenter();
+                lat = center.lat; lng = center.lng;
+            }
+            const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+            const autoCrokyUrl = `lib/kmls/img/${p.plotNum}.jpg`;
+            sideBody.innerHTML = `
+            <div class="info-item"><b>المنطقة والمربع:</b> ${p.regionMain} - ${p.regionSub} | مربع (${p.square})</div>
+                <div class="info-item"><b>المساحة الكلية:</b> ${p.area} م²</div>
+                <div class="info-item"><b>الاستعمال:</b> ${p.regionType === 'sakani' ? 'سكني' :p.regionType === 'sinay' ? 'صناعي' : p.regionType === 'sakanitgary' ? 'سكني | تجاري' : p.regionType === 'tgary' ? 'تجاري' : 'زراعي'}</div>
+                  ${p.video ? `<div class="info-item"><b>فيديو توضيحي:</b> ${videoButton}</div>` : ''}
+                <div class="info-item"><b></b><br><img src="${autoCrokyUrl}" class="croky-preview" onerror="this.style.display='none'"></div>
+                <div class="info-item"><b>الارتدادات التخطيطية:</b> ${p.offsets || 'غير محدد'}</div>
+                <div class="info-item"><b>عدد الطوابق المسموحة:</b> ${p.floors || 'غير محدد'}</div>
+                ${measurementsHtml}
+                <div class="nested-accordion">
+                    <div class="nested-header" onclick="toggleNestedSection(this)">
+                        <span>عرض المزيد</span>
+                        <span>▼</span>
+                    </div>
+                    <div class="nested-content">
+                        <div class="info-item" style="background:#fffcf5; padding:6px; border-radius:3px; border-right:2px solid var(--secondary);">
+                            <b>السعر :</b> <span style="font-size:13px; font-weight:bold; color:var(--primary);">${p.price} ريال عُماني</span>
+                        </div>
+                        <div class="info-item" style="margin-top:8px;">
+                            <b></b> ${p.ownerName || 'غير مدرج'}
+                        </div>
+                        <div class="info-item">
+                            <b></b> ${p.ownerPhone || 'غير مدرج'}
+                        </div>
+                    </div>
+                </div>
+                <div class="btnsc">
+                    <button class="btn1" onclick="startEditProperty('${p.id}')">✎</button>
+                    <button class="btn1" onclick="window.open('${googleMapsUrl}', '_blank')">⚑</button>
+                        <button class="btn1" onclick="openInGoogleEarth(currentActiveLayer)">3D</button>
+                    <button class="btn1" onclick="deleteProperty('${p.id}')">🗑</button>
+                </div>
+            `;
+window.currentActiveLayer = layer;
+            toggleSidebar(true);
+        }
+        function toggleNestedSection(header) {
+            const content = header.nextElementSibling;
+            const arrow = header.children[1];
+            if(content.style.display === 'block') {
+                content.style.display = 'none';
+                arrow.style.transform = 'rotate(0deg)';
+            } else {
+                content.style.display = 'block';
+                arrow.style.transform = 'rotate(180deg)';
+            }
+        }
+        function toggleSidebar(open) {
+            const sidebar = document.getElementById('info-sidebar');
+            if(open) sidebar.classList.add('open');
+            else sidebar.classList.remove('open');
+        }
+        window.startEditProperty = function(id) {
+            const p = properties.find(item => item.id == id);
+            if(!p) return;
+            document.getElementById('edit-id').value = p.id;
+            document.getElementById('prop-type').value = p.type;
+            document.getElementById('plot-num').value = p.plotNum;
+            document.getElementById('plot-square').value = p.square;
+            document.getElementById('region-main').value = p.regionMain;
+            document.getElementById('region-type').value = p.regionType || 'sakani';
+            document.getElementById('region-sub').value = p.regionSub;
+            document.getElementById('prop-area').value = p.area;
+            document.getElementById('prop-price').value = p.price === 'غير محدد' ? '' : p.price;
+            document.getElementById('tech-floors').value = p.floors;
+            document.getElementById('tech-offsets').value = p.offsets;
+            document.getElementById('owner-name').value = p.ownerName;
+            document.getElementById('owner-phone').value = p.ownerPhone;
+            document.getElementById('prop-status').value = p.status;
+            document.getElementById('submit-btn').innerText = ' تحديث ';
+            document.getElementById('cancel-edit-btn').style.display = 'block';
+            const addContent = document.getElementById('add-land-content');
+            if(!addContent.classList.contains('active')) { toggleSection('add-land-content'); }
+            toggleSidebar(false);
+        };
+        window.deleteProperty = function(id) {
+            if(!confirm("هل أنت متأكد من رغبتك في مسح هذا العقار نهائياً؟")) return;
+            localProperties = localProperties.filter(p => p.id != id);
+            localStorage.setItem('my_properties', JSON.stringify(localProperties));
+            scanKmlFolderAndLoad();
+            toggleSidebar(false);
+            resetForm();
+        };
+        function focusOnProperty(id) {
+            let foundLayer = null;
+            mapLayersGroup.eachLayer(function(container) {
+                if (container.propertyId == id) { foundLayer = container; }
+                if (container.eachLayer) {
+                    container.eachLayer(function(subLayer) {
+                        if (subLayer.propertyId == id) { foundLayer = subLayer; }
+                    });
+                }
+            });
+            const p = properties.find(item => item.id == id);
+            if(foundLayer) {
+                if (foundLayer.getBounds) {
+                   map.flyToBounds(foundLayer.getBounds(), { maxZoom: 18, padding: [50, 50],  duration: 1 });
+                } else if (foundLayer.getLatLng) {
+                   map.flyTo(
+    foundLayer.getLatLng(),
+    18,
+    {
+        duration: 1
+    }
+);
+                }
+                showPropertyDetails(p, foundLayer);
+            } else if(p) {
+                showPropertyDetails(p, null);
+            }
+        }
+        map.on('zoomend', function () {
+    const zoom = map.getZoom();
+    if (
+        zoom <= 14 &&
+        selectedRegionFilter !== 'كافة المناطق'
+    ) {
+        selectedRegionFilter = 'كافة المناطق';
+        updateUI();
+    }
+    updateBubbleOpacity();
+});
+        map.on('zoomend', updateBubbleOpacity);
+        map.on('click', function(e) {
+            for (let i = 0; i < allLandsLayers.length; i++) {
+                const layer = allLandsLayers[i];
+                if (layer instanceof L.Polygon && layer.getBounds().contains(e.latlng)) {
+                    showPropertyDetails(layer.customData, layer);
+                    break;
+                }
+            }
+        });
+        function renderUsageFilterBar() {
+    const bar = document.getElementById('usage-filter-bar');
+    const usages = [
+        ['الكل', 'الكل'],
+        ['sakani', 'سكني'],
+         ['sinay', 'صناعي'],
+        ['tgary', 'تجاري'],
+        ['zrai', 'زراعي'],
+        ['sakanitgary', 'سكني | تجاري']
+    ];
+    bar.innerHTML = '';
+    usages.forEach(item => {
+        const chip = document.createElement('div');
+        chip.className =
+            `filter-chip2 ${selectedUsageFilter === item[0] ? 'active' : ''}`;
+        chip.innerHTML = `${item[1]} `;
+        chip.onclick = () => {
+            selectedUsageFilter = item[0];
+            updateUI();
+        };
+        bar.appendChild(chip);
+    });
+}
+function updateBubbleOpacity(){
+    const zoom = map.getZoom();
+    let opacity = 1;
+    if(zoom >= 17){
+        opacity = 0;
+    }
+    else if(zoom >= 15){
+        opacity = 0.15;
+    }
+    else if(zoom >= 14){
+        opacity = 0.35;
+    }
+    else if(zoom >= 13){
+        opacity = 0.9;
+    }
+    else{
+        opacity = 1;
+    }
+    document
+        .querySelectorAll('.region-bubble')
+        .forEach(el=>{
+            el.style.opacity = opacity;
+        });
+}
+function renderRegionBubbles(){
+    regionBubbles.forEach(m=>{
+        map.removeLayer(m);
+    });
+    regionBubbles=[];
+    Object.keys(regionCenters).forEach(region=>{
+        const count =
+            properties.filter(
+                p=>p.regionMain===region
+            ).length;
+        if(count===0) return;
+        const size =
+            Math.max(
+                70,
+                Math.min(
+                    120,
+                    70 + count
+                )
+            );
+        const html=`
+            <div class="region-bubble"
+                 style="
+                    width:${size}px;
+                    height:${size}px;
+                 ">
+                <div class="name">${region}</div>
+                <div class="count">${count}</div>
+            </div>
+        `;
+        const marker=L.marker(
+            regionCenters[region],
+            {
+                 pane:'regionBubblePane',
+        interactive:true,
+        icon:L.divIcon({
+                    html:html,
+                    className:'',
+                    iconSize:[size,size],
+                    iconAnchor:[size/2,size/2]
+                })
+            }
+        );
+        marker.on('click',()=>{
+            selectedRegionFilter=region;
+            map.flyTo(
+                regionCenters[region],
+                15,
+                {
+                    animate:true,
+                    duration:1.5
+                }
+            );
+            updateUI();
+        });
+        marker.addTo(map);
+        regionBubbles.push(marker);
+    });
+    updateBubbleOpacity();
+}
+
+    </script>
+</body>
+</html>

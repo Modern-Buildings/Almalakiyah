@@ -22,7 +22,11 @@ html, body {
   margin: 0;
   padding: 0;
 }
-
+@layer base {
+  body, button, input, select, textarea {
+    font-family: var(--font-zain), 'Zain', sans-serif !important;
+  }
+}
 body {
   background-color: var(--bg-dark);
   color: var(--text-primary);
