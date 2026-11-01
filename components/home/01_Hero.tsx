@@ -27,23 +27,23 @@ export default function HeroSection() {
       {/* المحتوى الرئيسي */}
       <div className="relative z-10 text-center max-w-4xl mx-auto px-4 mt-20">
         <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
-          {t("hero_title") || "الملكية العقارية للاستثمار والتطوير"}
+          {t?.hero?.title || "الملكية العقارية للاستثمار والتطوير"}
         </h1>
         <p className="text-lg md:text-2xl text-gray-200 mb-8 font-light">
-          {t("hero_subtitle") || "نصنع فرص استثمارية مستدامة برؤية عصرية"}
+          {t?.hero?.subtitle || "نصنع فرص استثمارية مستدامة برؤية عصرية"}
         </p>
         <div className="flex flex-wrap gap-4 justify-center">
           <a
             href="/projects"
             className="px-8 py-3 bg-[#C9A050] text-black font-bold rounded-lg hover:bg-[#b08b42] transition-colors duration-300"
           >
-            {t("our_projects") || "استكشف مشاريعنا"}
+            {t?.nav?.projects || "استكشف مشاريعنا"}
           </a>
           <a
             href="/map"
             className="px-8 py-3 bg-white/10 backdrop-blur-md text-white font-bold rounded-lg border border-white/20 hover:bg-white/20 transition-colors duration-300"
           >
-            {t("view_map") || "الخريطة التفاعلية"}
+            {t?.hero?.map || "الخريطة التفاعلية"}
           </a>
         </div>
       </div>
