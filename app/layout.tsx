@@ -10,7 +10,26 @@ const zain = Zain({
   variable: "--font-zain",
   display: "swap",
 });
+import { Alexandria } from 'next/font/google';
+import './css/main.css';
 
+const alexandria = Alexandria({
+  subsets: ['arabic', 'latin'],
+  variable: '--font-alexandria',
+  display: 'swap',
+});
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="ar" className={alexandria.variable}>
+      <body>{children}</body>
+    </html>
+  );
+}
 export const metadata: Metadata = {
   title: "الملكية العقارية | Almalakiyah Real Estate",
   description: "شركة الملكية العقارية للاستثمار والتطوير العقاري",
