@@ -37,13 +37,13 @@ export default function HeroSection() {
             href="/projects"
             className="px-8 py-3 bg-[#C9A050] text-black font-bold rounded-lg hover:bg-[#b08b42] transition-colors duration-300"
           >
-            {t?.nav?.projects || "استكشف مشاريعنا"}
+            {t?.hero?.btnExplore || t?.nav?.projects || "استكشف مشاريعنا"}
           </a>
           <a
             href="/map"
             className="px-8 py-3 bg-white/10 backdrop-blur-md text-white font-bold rounded-lg border border-white/20 hover:bg-white/20 transition-colors duration-300"
           >
-            {t?.hero?.map || "الخريطة التفاعلية"}
+            {(t?.hero as Record<string, string>)?.map || "الخريطة التفاعلية"}
           </a>
         </div>
       </div>
