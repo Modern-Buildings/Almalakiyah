@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Zain } from "next/font/google";
+import { Zain, Alexandria } from "next/font/google";
+import { LanguageProvider } from "@/context/LanguageContext";
 import "./css/main.css";
 import "./css/style.css";
-import { LanguageProvider } from "@/context/LanguageContext";
 
 const zain = Zain({
   subsets: ["arabic"],
@@ -10,26 +10,13 @@ const zain = Zain({
   variable: "--font-zain",
   display: "swap",
 });
-import { Alexandria } from 'next/font/google';
-import './css/main.css';
 
 const alexandria = Alexandria({
-  subsets: ['arabic', 'latin'],
-  variable: '--font-alexandria',
-  display: 'swap',
+  subsets: ["arabic", "latin"],
+  variable: "--font-alexandria",
+  display: "swap",
 });
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html lang="ar" className={alexandria.variable}>
-      <body>{children}</body>
-    </html>
-  );
-}
 export const metadata: Metadata = {
   title: "الملكية العقارية | Almalakiyah Real Estate",
   description: "شركة الملكية العقارية للاستثمار والتطوير العقاري",
@@ -41,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl" className={zain.variable}>
+    <html lang="ar" dir="rtl" className={`${zain.variable} ${alexandria.variable}`}>
       <body className="font-zain antialiased bg-[#090D16] text-white selection:bg-[#C9A050] selection:text-black">
         <LanguageProvider>{children}</LanguageProvider>
       </body>
