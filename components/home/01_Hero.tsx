@@ -34,13 +34,13 @@ export default function HeroSection() {
         </p>
         <div className="flex flex-wrap gap-4 justify-center">
           <a
-            href="/projects"
+            href="/#who-we-are"
             className="px-8 py-3 bg-[#C9A050] text-black font-bold rounded-lg hover:bg-[#b08b42] transition-colors duration-300"
           >
-            {t?.hero?.btnExplore || t?.nav?.projects || "استكشف مشاريعنا"}
+            {t?.hero?.btnExplore || t?.nav?.projects || "من نحن"}
           </a>
           <a
-            href="/map"
+            href="/#" 
             className="px-8 py-3 bg-white/10 backdrop-blur-md text-white font-bold rounded-lg border border-white/20 hover:bg-white/20 transition-colors duration-300"
           >
             {(t?.hero as Record<string, string>)?.map || "الخريطة التفاعلية"}

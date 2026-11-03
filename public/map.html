@@ -405,6 +405,216 @@ body, * {
                 transition-duration: .01ms !important;
             }
         }
+
+/* ===== Interactive map layout fix ===== */
+html, body {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+body {
+    display: flex;
+    align-items: stretch;
+    position: relative;
+    min-width: 320px;
+    height: 100vh;
+    height: 100dvh;
+}
+.admin-panel {
+    position: relative !important;
+    inset: auto !important;
+    top: 0 !important;
+    right: auto !important;
+    left: auto !important;
+    z-index: 1200 !important;
+    flex: 0 0 400px !important;
+    width: 400px !important;
+    min-width: 0 !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    transform: translateX(0) !important;
+    transition: flex-basis .28s ease, width .28s ease, transform .28s ease !important;
+}
+.admin-panel.hidden {
+    flex-basis: 0 !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    transform: translateX(0) !important;
+}
+.toggle-panel-btn {
+    position: absolute !important;
+    right: 400px !important;
+    left: auto !important;
+    top: 50% !important;
+    z-index: 1300 !important;
+    transform: translateY(-50%) !important;
+    transition: right .28s ease !important;
+}
+.admin-panel.hidden + .toggle-panel-btn {
+    right: 0 !important;
+}
+.map-container {
+    position: relative !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    width: auto !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+}
+#map {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    background: #e9e7e2;
+}
+.filter-container {
+    z-index: 1000 !important;
+    max-width: 100%;
+}
+.leaflet-container {
+    width: 100%;
+    height: 100%;
+    font-family: 'Zain', sans-serif;
+}
+.info-sidebar {
+    max-height: 100%;
+    overflow: hidden;
+}
+.info-sidebar .sidebar-body {
+    min-height: 0;
+    overflow-y: auto;
+}
+.collapsible-content {
+    max-height: 85dvh;
+    overflow-y: auto;
+}
+@media (max-width: 992px) {
+    body {
+        display: block !important;
+    }
+    .map-container {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        z-index: 1 !important;
+    }
+    .admin-panel {
+        position: fixed !important;
+        top: 0 !important;
+        right: 0 !important;
+        left: auto !important;
+        bottom: 0 !important;
+        width: min(86vw, 360px) !important;
+        max-width: 360px !important;
+        height: 100dvh !important;
+        flex: none !important;
+        z-index: 2000 !important;
+        background: #fff !important;
+        box-shadow: -8px 0 28px rgba(0,0,0,.16) !important;
+        transform: translateX(0) !important;
+        transition: transform .28s ease !important;
+    }
+    .admin-panel.hidden {
+        width: min(86vw, 360px) !important;
+        flex: none !important;
+        transform: translateX(105%) !important;
+    }
+    .toggle-panel-btn {
+        position: fixed !important;
+        right: min(86vw, 360px) !important;
+        left: auto !important;
+        top: 50% !important;
+        z-index: 2100 !important;
+        padding: 14px 8px !important;
+        transform: translateY(-50%) !important;
+    }
+    .admin-panel.hidden + .toggle-panel-btn {
+        right: 0 !important;
+    }
+    .filter-container {
+        top: 0 !important;
+        right: 0 !important;
+        left: 0 !important;
+        padding: 7px !important;
+        gap: 5px !important;
+        background: rgba(255,255,255,.96) !important;
+        flex-wrap: wrap !important;
+    }
+    .panel-header {
+        padding: 0 !important;
+        gap: 6px !important;
+        white-space: normal !important;
+    }
+    .panel-header span {
+        font-size: 12px !important;
+    }
+    .panel-logo {
+        height: 25px !important;
+        width: auto !important;
+    }
+    .filter-chip, .filter-chip2, .filter-chip1 {
+        min-height: 32px;
+        padding: 6px 9px !important;
+        font-size: 11px !important;
+    }
+    .info-sidebar {
+        position: fixed !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        left: auto !important;
+        right: 0 !important;
+        width: min(88vw, 340px) !important;
+        max-width: 88vw !important;
+        height: 100dvh !important;
+        z-index: 2200 !important;
+        transform: translateX(105%);
+        transition: transform .28s ease !important;
+    }
+    .info-sidebar.open {
+        left: auto !important;
+        right: 0 !important;
+        transform: translateX(0);
+    }
+    .collapsible-content {
+        width: min(92vw, 420px) !important;
+        max-width: 92vw !important;
+        max-height: 82dvh !important;
+        padding: 18px !important;
+        overflow-y: auto !important;
+    }
+    #advanced-settings-content, #search-settings-content {
+        max-height: 82dvh !important;
+        overflow-y: auto !important;
+    }
+    th, td {
+        padding: 8px 5px !important;
+        font-size: 10px !important;
+        white-space: nowrap !important;
+    }
+}
+@media (max-width: 420px) {
+    .filter-container {
+        gap: 4px !important;
+        padding: 5px !important;
+    }
+    .panel-header span {
+        display: none;
+    }
+    .filter-chip, .filter-chip2 {
+        font-size: 10px !important;
+        padding: 5px 7px !important;
+    }
+}
+
 </style>
 </head>
 <body>
@@ -637,7 +847,27 @@ map.createPane('regionBubblePane');
 map.getPane('regionBubblePane').style.zIndex = 700;
         const baseMaps = { "قمر صناعي (جوجل)": L.layerGroup([googleSatellite, labelLayer]), "خريطة الشوارع": streetLayer };
         L.control.layers(baseMaps, null, { position: 'topleft' }).addTo(map);
-        let localProperties = JSON.parse(localStorage.getItem('my_properties')) || [];
+        let localProperties = [];
+        try {
+            const savedProperties = localStorage.getItem('my_properties');
+            localProperties = savedProperties ? JSON.parse(savedProperties) : [];
+            if (!Array.isArray(localProperties)) localProperties = [];
+        } catch (error) {
+            console.warn('تعذر قراءة البيانات المحلية المحفوظة:', error);
+            localProperties = [];
+        }
+
+        const refreshMapSize = () => {
+            requestAnimationFrame(() => map.invalidateSize({ pan: false, animate: false }));
+        };
+        window.addEventListener('load', () => {
+            refreshMapSize();
+            setTimeout(refreshMapSize, 250);
+            setTimeout(refreshMapSize, 700);
+        });
+        window.addEventListener('resize', refreshMapSize, { passive: true });
+        window.addEventListener('orientationchange', () => setTimeout(refreshMapSize, 300));
+
         let properties = [];
         let selectedRegionFilter = 'كافة المناطق'
         let mapLayersGroup = L.layerGroup().addTo(map);
@@ -708,7 +938,7 @@ function openInGoogleEarth(layer) {
             } else {
                 btn.innerText = '▶';
             }
-            setTimeout(() => { map.invalidateSize(); }, 300);
+            setTimeout(() => { refreshMapSize(); }, 300);
         }
 
         // Logic for Advanced Search Submit
