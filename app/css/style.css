@@ -14,8 +14,8 @@
 
   --color-accent: #E7D0BC;
 
-  --font-ar: var(--font-ar);
-  --font-en: var(--font-en);
+  --font-ar: var(--font-zain), "Zain", sans-serif;
+  --font-en: var(--font-alexandria), "Alexandria", sans-serif;
 
   /* Hybrid Cinematic Palette */
   --color-bg-primary: #0B0B0B;
@@ -195,5 +195,54 @@
 @layer utilities {
   .clip-path-reveal {
     clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  }
+}
+
+
+/* ── Global layout refinements ─────────────────────────────── */
+:root {
+  color-scheme: light;
+  scroll-padding-top: 5rem;
+}
+
+html {
+  min-height: 100%;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  overflow-x: clip;
+  font-family: var(--font-zain), "Zain", sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+img, video, iframe {
+  max-width: 100%;
+}
+
+a, button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

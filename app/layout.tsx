@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Zain, Alexandria } from "next/font/google";
 import { LanguageProvider } from "@/context/LanguageContext";
-import "./css/main.css";
 import "./css/style.css";
 
 const zain = Zain({
